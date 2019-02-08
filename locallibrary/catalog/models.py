@@ -25,11 +25,11 @@ class Book(models.Model):
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
-    
+
     def __str__(self):
         """String for representing the Model object."""
         return self.title
-    
+
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
@@ -37,7 +37,7 @@ class Book(models.Model):
     def display_genre(self):
         """Create a string for the Genre. This is required to display genre in Admin."""
         return ', '.join(genre.name for genre in self.genre.all()[:3])
-    
+
     display_genre.short_description = 'Genre'
 
 import uuid # Required for unique book instances
@@ -80,7 +80,7 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
-    
+
     def get_absolute_url(self):
         """Returns the url to access a particular author instance."""
         return reverse('author-detail', args=[str(self.id)])
@@ -89,10 +89,17 @@ class Author(models.Model):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
 
+    class Meta:
+        ordering = ['last_name']
+
 class Language(models.Model):
-    """Model representing a book language."""
-    name = models.CharField(max_length=200, help_text='Enter a book language (e.g. Farsi)')
+    """
+    Model representing a Language (e.g. English, French, Japanese, etc.)
+    """
+    name = models.CharField(max_length=200, help_text="Enter a the book's natural language (e.g. English, French, Japanese etc.)")
     
     def __str__(self):
-        """String for representing the Model object."""
+        """
+        String for representing the Model object (in Admin site etc.)
+        """
         return self.name
