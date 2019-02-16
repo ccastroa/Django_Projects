@@ -22,3 +22,15 @@ if settings.DEBUG:
             'document_root': os.path.join(BASE_DIR, 'catalog/static'),
         }),
     ]
+
+urlpatterns += [
+    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path('borrowed', views.LoanedBooksListView.as_view(), name='all-borrowed'),
+]
+
+urlpatterns += [
+    path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path(r'^borrowed/$', views.LoanedBooksAllListView.as_view(), name='all-borrowed'), #Added for challenge
+]
+
+
