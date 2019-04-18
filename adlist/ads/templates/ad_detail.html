@@ -15,9 +15,29 @@
 <p>
 {{ ad.text }}
 </p>
+
 <p>
+<form method="post" action="{% url 'comment_create' ad.id %}">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+<input type="submit" value="Submit">
+<input type="submit" value="All Forums" onclick="window.location.href='{% url 'forums' %}';return false;">
+</form>
 </p>
+
 <p>
 <a href="{% url 'ads' %}">All ads</a>
 </p>
+
+{% endif %}
+{% for comment in comments %}
+<p> {{ comment.text }} 
+({{ comment.updated_at|naturaltime }})
+{% if user == comment.owner %}
+<a href="{% url 'comment_update' comment.id %}"><i class="fa fa-pencil"></i></a>
+<a href="{% url 'comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
+{% endif %}
+</p>
+{% endfor %}
+
 {% endblock %}
