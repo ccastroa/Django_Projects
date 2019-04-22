@@ -1,14 +1,28 @@
-<html>
-<head>
-    <title>Hello World</title>
-    <meta name="wa4e" content="e2ef524fbf3d9fe611d5a8e90fefdc9c"> 
-</head>
-<body>
-<h1>Hello World</h1>
-<p>A photo of my dog, Charmander</p>
+{% extends "base.html" %}
+{% block title %}My DJ4E Projects{% endblock %}
+{% block content %}
+<h1>My DJ4E Projects</h1>
+<p>This is coming from a file in home/templates/main_home.html</p>
+<p>
+{% if user.is_authenticated %}
+
+<ul>
+    <li>Try <a href="/autos">Autos Crud</a></li>
+    <li>Try <a href="/cats">Cats CRUD</a></li>
+    <li>Try <a href="/stars">Stars CRUD</a></li>
+</ul>
+
+<p><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></p>   
+{% else %}
+<p><a href="{% url 'login'%}?next={{request.path}}">Please log in</a></p>   
+{% endif %}
+</p>
+<h2>Hello World</h2>
+<p>A photo of my dog, Charmander! He's 3 years old!</p>
 <p>
 <img src="//c1.staticflickr.com/8/7856/46277138445_c48d6056de_z.jpg" 
     alt="Charmander the Brindle Pit | by leenacastro">
 </p>
-</body>
-</html>
+{% endblock %}
+
+

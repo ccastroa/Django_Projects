@@ -1,5 +1,4 @@
 """adlist URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
 Examples:
@@ -20,10 +19,28 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
-
 urlpatterns = [
+    path('', include("ads.urls")),
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-   #  path('ads/', include('ads.urls')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+    path('autos/', include('autos.urls')),
+    path('stars/', include('stars.urls')),
+]
+
+# if 'social_django' in settings.INSTALLED_APPS:
+#     urlpatterns += [
+#         url(r'^oauth/', include('social_django.urls', namespace='social')),
+#     ]
+
+# Serve the favicon
+import os
+from django.views.static import serve
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+urlpatterns += [
+    path('favicon.ico', serve, {
+            'path': 'favicon.ico',
+            'document_root': os.path.join(BASE_DIR, 'home/static'),
+        }
+    ),
 ]

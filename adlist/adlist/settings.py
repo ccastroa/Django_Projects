@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [ '*' ]
 
-APP_NAME = 'CarolsList'
+APP_NAME = 'CarolsAdList'
 
 # Application definition
 
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',  # Add
     'social_django',  # Add
     'home.apps.HomeConfig',  # Add - Common folder
+    'autos.apps.AutosConfig',
     'ads.apps.AdsConfig',
+    'stars.apps.StarsConfig',
 ]
 
 MIDDLEWARE = [
